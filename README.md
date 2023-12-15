@@ -1,6 +1,6 @@
 # floor_database
 
-A new Flutter project.
+A new Floor Database project.
 
 ## Getting Started
 
