@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomePage> {
+
   final TextEditingController id_controller = TextEditingController();
   final TextEditingController person_name_controller = TextEditingController();
 
@@ -114,7 +115,8 @@ class _MyHomePageState extends State<HomePage> {
                     ),
                   ),
                 );
-              });
+              }
+            );
         },
         child: const Icon(Icons.add),
       ),
