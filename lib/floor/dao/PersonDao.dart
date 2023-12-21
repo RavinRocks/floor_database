@@ -1,5 +1,4 @@
 import 'package:floor/floor.dart';
-
 import '../entity/Person.dart';
 
 @dao
@@ -12,7 +11,6 @@ abstract class PersonDao {
 
   @Query('SELECT * FROM Person WHERE id = :id')
   Stream<Person?> findPersonById(int id);
-
 
   @Query('UPDATE Person SET name=:name  WHERE id = :id')
   Stream<Person?> updatePersonById(String name,int id);
