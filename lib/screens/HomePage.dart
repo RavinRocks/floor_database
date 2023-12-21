@@ -52,22 +52,22 @@ class _MyHomePageState extends State<HomePage> {
                   },
                 ),
               ),
-    ],
-  ),
+           ],
+          ),
         ),
       ),
-  floatingActionButton: FloatingActionButton(
-    onPressed: () async {
+      floatingActionButton: FloatingActionButton(
+      onPressed: () async {
 
-      showGeneralDialog(
-        context: context,
-        barrierLabel: "showGeneralDialog",
-        barrierDismissible: true,
-        barrierColor: Colors.black.withOpacity(0.5),
-        transitionDuration: const Duration(milliseconds: 400),
-        pageBuilder: (context, animation, secondaryAnimation) {
+        showGeneralDialog(
+          context: context,
+          barrierLabel: "showGeneralDialog",
+          barrierDismissible: true,
+          barrierColor: Colors.black.withOpacity(0.5),
+          transitionDuration: const Duration(milliseconds: 400),
+          pageBuilder: (context, animation, secondaryAnimation) {
 
-          return Align(
+            return Align(
             alignment: Alignment.center,
             child: Material(
               color: Colors.transparent,
@@ -106,7 +106,9 @@ class _MyHomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.black),
-                            child:const Text("Add",style: TextStyle(color: Colors.white)))),
+                            child:const Text("Add",style: TextStyle(color: Colors.white))
+                      )
+                    ),
                 ]),
               ),
             ),
