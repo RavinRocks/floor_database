@@ -2,7 +2,6 @@ import 'package:floor_database/floor/dao/PersonDao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/Data_controller.dart';
-import '../floor/entity/Person.dart';
 
 class HomePage extends StatefulWidget {
   PersonDao personDao;
@@ -14,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage> {
 
-  final datacontroller = Get.put(Data_controller());
+  final dataController = Get.put(Data_controller());
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +49,19 @@ class _MyHomePageState extends State<HomePage> {
                             ),
                             child: Obx(() =>  Text(
                               allRecords[index],
-                              style: const TextStyle(color: Colors.black),
-                            )));
-                      },
-                    );
-                  },
+                              style: const TextStyle(color: Colors.black),)));
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          showGeneralDialog(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+           showGeneralDialog(
               context: context,
               barrierLabel: "showGeneralDialog",
               barrierDismissible: true,
@@ -85,7 +83,7 @@ class _MyHomePageState extends State<HomePage> {
                           color: Colors.white),
                       child: Column(children: [
                         TextField(
-                          controller: datacontroller.id_controller,
+                          controller: dataController.id_controller,
                           decoration: const InputDecoration(
                             hintText: " Enter id:",
                             hintStyle:
@@ -94,7 +92,7 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                         ),
                         TextField(
-                          controller: datacontroller.person_name_controller,
+                          controller: dataController.person_name_controller,
                           decoration: const InputDecoration(
                             hintText: " Person Name:",
                             hintStyle: TextStyle(color: Colors.black, fontSize: 15),
@@ -103,8 +101,8 @@ class _MyHomePageState extends State<HomePage> {
                         ),
                         InkWell(
                             onTap: ()  {
-                              datacontroller.insertPerson(int.parse(datacontroller.id_controller.text),
-                                    datacontroller.person_name_controller.text,widget.personDao);
+                              dataController.insertPerson(int.parse(dataController.id_controller.text),
+                                    dataController.person_name_controller.text,widget.personDao);
                               Navigator.pop(context);
                             },
                             child: Container(
