@@ -1,11 +1,11 @@
 import 'package:floor_database/floor/dao/PersonDao.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controller/Data_controller.dart';
 import '../floor/entity/Person.dart';
 
 class HomePage extends StatefulWidget {
   PersonDao personDao;
-
   HomePage({super.key, required this.personDao});
 
   @override
@@ -14,8 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage> {
 
-  final TextEditingController id_controller = TextEditingController();
-  final TextEditingController person_name_controller = TextEditingController();
+  final datacontroller = Get.put(Data_controller());
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +22,19 @@ class _MyHomePageState extends State<HomePage> {
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.all(5),
+
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+
               const Text('Person List',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
               Expanded(
+
                 child: StreamBuilder<List<String>>(
                   stream: widget.personDao.findAllPersonName(),
                   builder: (_, snapshot) {
+
                     if (!snapshot.hasData) return Container();
                     final allRecords = snapshot.requireData.obs;
 
@@ -69,8 +72,10 @@ class _MyHomePageState extends State<HomePage> {
               pageBuilder: (context, animation, secondaryAnimation) {
                 return Align(
                   alignment: Alignment.center,
+
                   child: Material(
                     color: Colors.transparent,
+
                     child: Container(
                       margin: const EdgeInsets.all(10),
                       height: 180,
@@ -80,7 +85,7 @@ class _MyHomePageState extends State<HomePage> {
                           color: Colors.white),
                       child: Column(children: [
                         TextField(
-                          controller: id_controller,
+                          controller: datacontroller.id_controller,
                           decoration: const InputDecoration(
                             hintText: " Enter id:",
                             hintStyle:
@@ -89,7 +94,7 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                         ),
                         TextField(
-                          controller: person_name_controller,
+                          controller: datacontroller.person_name_controller,
                           decoration: const InputDecoration(
                             hintText: " Person Name:",
                             hintStyle: TextStyle(color: Colors.black, fontSize: 15),
@@ -97,10 +102,9 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                         ),
                         InkWell(
-                            onTap: () async {
-                              final person = Person(int.parse(id_controller.text),
-                                  person_name_controller.text);
-                              await widget.personDao.insertPerson(person);
+                            onTap: ()  {
+                              datacontroller.insertPerson(int.parse(datacontroller.id_controller.text),
+                                    datacontroller.person_name_controller.text,widget.personDao);
                               Navigator.pop(context);
                             },
                             child: Container(
