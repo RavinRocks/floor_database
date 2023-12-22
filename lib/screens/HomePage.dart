@@ -29,8 +29,8 @@ class _MyHomePageState extends State<HomePage> {
 
               const Text('Person List',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-              Expanded(
 
+              Expanded(
                 child: StreamBuilder<List<String>>(
                   stream: widget.personDao.findAllPersonName(),
                   builder: (_, snapshot) {
