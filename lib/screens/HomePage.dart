@@ -48,10 +48,10 @@ class _MyHomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(10),
                               color: Theme.of(context).highlightColor,
                             ),
-                            child: Text(
+                            child: Obx(() =>  Text(
                               allRecords[index],
                               style: const TextStyle(color: Colors.black),
-                            ));
+                            )));
                       },
                     );
                   },
