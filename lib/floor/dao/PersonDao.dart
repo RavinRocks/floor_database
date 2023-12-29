@@ -21,5 +21,4 @@ abstract class PersonDao {
   @delete
   Future<void> deletePerson(Person id);
 
-
 }

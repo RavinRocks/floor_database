@@ -50,12 +50,12 @@ class _MyHomePageState extends State<HomePage> {
                             child: Obx(() =>  Text(
                               allRecords[index],
                               style: const TextStyle(color: Colors.black),)));
-                        },
-                      );
-                    },
-                  ),
+                      },
+                    );
+                  },
                 ),
-              ],
+              ),
+            ],
             ),
           ),
         ),
