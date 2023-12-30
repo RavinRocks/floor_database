@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../floor/dao/PersonDao.dart';
 import '../floor/entity/Person.dart';
 
-class Data_controller extends GetxController
+class DataController extends GetxController
 {
   final TextEditingController idController = TextEditingController();
   final TextEditingController perNameController = TextEditingController();
@@ -17,7 +17,7 @@ class Data_controller extends GetxController
     await personDao.insertPerson(person);
   }
 
-  Future<List<Person>> getdata(PersonDao personDao) async{
+  Future<List<Person>> getAllPerson(PersonDao personDao) async{
     var response =await personDao.findAllPerson();
     personData.value=response;
     update();

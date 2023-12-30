@@ -13,12 +13,12 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage> {
 
-  final dataController = Get.put(Data_controller());
+  final dataController = Get.put(DataController());
 
   @override
   void initState() {
     super.initState();
-    dataController.getdata(widget.personDao);
+    dataController.getAllPerson(widget.personDao);
   }
 
   @override
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<HomePage> {
                               onTap: ()  {
                                 dataController.insertPerson(int.parse(dataController.idController.text),
                                     dataController.perNameController.text,widget.personDao);
-                                dataController.getdata(widget.personDao);
+                                dataController.getAllPerson(widget.personDao);
                                 Navigator.pop(context);
                               },
                               child: Container(
