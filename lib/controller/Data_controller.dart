@@ -6,15 +6,20 @@ import '../floor/entity/Person.dart';
 
 class Data_controller extends GetxController
 {
-  final TextEditingController id_controller = TextEditingController();
-  final TextEditingController person_name_controller = TextEditingController();
-  final controller = StreamController<Person>();
-  late Future<List<Person>> mydata=[].obs as Future<List<Person>>;
-  Rx<RxList> personname=RxList().obs;
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController perNameController = TextEditingController();
+
+  late var personData=[].obs;
 
   insertPerson(int id,String personName, PersonDao personDao)
   async {
       final person = Person(id,personName);
       await personDao.insertPerson(person);
   }
+
+    Future<List<Person>> getdata(PersonDao personDao) async{
+      var response =await personDao.findAllPerson();
+      personData.value=response;
+      return response;
+    }
 }

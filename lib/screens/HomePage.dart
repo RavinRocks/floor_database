@@ -29,32 +29,23 @@ class _MyHomePageState extends State<HomePage> {
               const Text('Person List',
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
 
-              Expanded(
-                child: StreamBuilder<List<String>>(
-                  stream: widget.personDao.findAllPersonName(),
-                  builder: (_, snapshot) {
-
-                    if (!snapshot.hasData) return Container();
-                    final allRecords = snapshot.requireData.obs;
-
-                    return ListView.builder(
-                      itemCount: allRecords.length,
-                      itemBuilder: (_, index) {
-                        return Container(
-                            margin: const EdgeInsets.all(5),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).highlightColor,
-                            ),
-                            child: Obx(() =>  Text(
-                              allRecords[index],
-                              style: const TextStyle(color: Colors.black),)));
-                      },
-                    );
-                  },
-                ),
-              ),
+                     Expanded(
+                       child: ListView.builder(
+                        itemCount: dataController.personData.length!=null?dataController.personData.length:0,
+                        itemBuilder: (_, index) {
+                          return Container(
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context).highlightColor,
+                              ),
+                              child: Obx(() =>  Text(
+                                dataController.personData[index].name,
+                                style: const TextStyle(color: Colors.black),)));
+                          }
+                      ),
+                   ),
             ],
             ),
           ),
@@ -83,7 +74,7 @@ class _MyHomePageState extends State<HomePage> {
                           color: Colors.white),
                       child: Column(children: [
                         TextField(
-                          controller: dataController.id_controller,
+                          controller: dataController.idController,
                           decoration: const InputDecoration(
                             hintText: " Enter id:",
                             hintStyle:
@@ -92,7 +83,7 @@ class _MyHomePageState extends State<HomePage> {
                           ),
                         ),
                         TextField(
-                          controller: dataController.person_name_controller,
+                          controller: dataController.perNameController,
                           decoration: const InputDecoration(
                             hintText: " Person Name:",
                             hintStyle: TextStyle(color: Colors.black, fontSize: 15),
@@ -101,8 +92,9 @@ class _MyHomePageState extends State<HomePage> {
                         ),
                         InkWell(
                             onTap: ()  {
-                              dataController.insertPerson(int.parse(dataController.id_controller.text),
-                                    dataController.person_name_controller.text,widget.personDao);
+                              dataController.insertPerson(int.parse(dataController.idController.text),
+                                    dataController.perNameController.text,widget.personDao);
+                              dataController.getdata(widget.personDao);
                               Navigator.pop(context);
                             },
                             child: Container(
