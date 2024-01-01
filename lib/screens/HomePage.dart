@@ -37,22 +37,24 @@ class _MyHomePageState extends State<HomePage> {
               children: <Widget>[
 
                 const Text('Person List',
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
 
                 Expanded(
                   child: ListView.builder(
                       itemCount: dataController.personData.length!=null?dataController.personData.length:0,
                       itemBuilder: (_, index) {
-                        return Container(
-                            margin: const EdgeInsets.all(5),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context).highlightColor,
-                            ),
-                            child: Text(
-                              dataController.personData[index].name,
-                              style: const TextStyle(color: Colors.black),));
+                        return
+                            Card(
+                                margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                elevation:10 , color: Colors.white,
+                                shadowColor: Colors.black,
+                          child: Container(
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                               "ID : ${dataController.personData[index].id} \nNAME: "+dataController.personData[index].name,
+                                style: const TextStyle(color: Colors.black,),)),
+                        );
                       }
                   ),
                 ),
@@ -82,7 +84,9 @@ class _MyHomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
+
                         child: Column(children: [
+
                           TextField(
                             controller: dataController.idController,
                             decoration: const InputDecoration(
@@ -122,9 +126,14 @@ class _MyHomePageState extends State<HomePage> {
                 }
             );
           },
-          child: const Icon(Icons.add),
+          child: Container(
+            width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(10)),
+              child: const Icon(Icons.add,color: Colors.white,)),
         ),
       );
-    }
-    );}
+     }
+    );
+  }
 }

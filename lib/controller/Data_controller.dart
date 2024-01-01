@@ -6,10 +6,11 @@ import '../floor/entity/Person.dart';
 
 class DataController extends GetxController
 {
-  final TextEditingController idController = TextEditingController();
-  final TextEditingController perNameController = TextEditingController();
+  var idController = TextEditingController();
+  var perNameController = TextEditingController();
 
-  late var personData=[].obs;
+  var personData=[].obs;
+
 
   insertPerson(int id,String personName, PersonDao personDao)
   async {
