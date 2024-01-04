@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Person` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Person` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -109,13 +109,6 @@ class _$PersonDao extends PersonDao {
             'Person',
             (Person item) =>
                 <String, Object?>{'id': item.id, 'name': item.name},
-            changeListener),
-        _personDeletionAdapter = DeletionAdapter(
-            database,
-            'Person',
-            ['id'],
-            (Person item) =>
-                <String, Object?>{'id': item.id, 'name': item.name},
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -126,28 +119,18 @@ class _$PersonDao extends PersonDao {
 
   final InsertionAdapter<Person> _personInsertionAdapter;
 
-  final DeletionAdapter<Person> _personDeletionAdapter;
-
   @override
   Future<List<Person>> findAllPerson() async {
     return _queryAdapter.queryList('SELECT * FROM Person',
         mapper: (Map<String, Object?> row) =>
-            Person(row['id'] as int, row['name'] as String));
-  }
-
-  @override
-  Stream<List<String>> findAllPersonName() {
-    return _queryAdapter.queryListStream('SELECT name FROM Person',
-        mapper: (Map<String, Object?> row) => row.values.first as String,
-        queryableName: 'Person',
-        isView: false);
+            Person(row['id'] as int?, row['name'] as String));
   }
 
   @override
   Stream<Person?> findPersonById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM Person WHERE id = ?1',
         mapper: (Map<String, Object?> row) =>
-            Person(row['id'] as int, row['name'] as String),
+            Person(row['id'] as int?, row['name'] as String),
         arguments: [id],
         queryableName: 'Person',
         isView: false);
@@ -160,7 +143,7 @@ class _$PersonDao extends PersonDao {
   ) {
     return _queryAdapter.queryStream('UPDATE Person SET name=?1  WHERE id = ?2',
         mapper: (Map<String, Object?> row) =>
-            Person(row['id'] as int, row['name'] as String),
+            Person(row['id'] as int?, row['name'] as String),
         arguments: [name, id],
         queryableName: 'no_table_name',
         isView: false);
@@ -169,10 +152,5 @@ class _$PersonDao extends PersonDao {
   @override
   Future<void> insertPerson(Person person) async {
     await _personInsertionAdapter.insert(person, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> deletePerson(Person id) async {
-    await _personDeletionAdapter.delete(id);
   }
 }

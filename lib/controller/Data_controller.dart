@@ -1,27 +1,42 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../database/database.dart';
 import '../floor/dao/PersonDao.dart';
 import '../floor/entity/Person.dart';
 
-class DataController extends GetxController
-{
-  var idController = TextEditingController();
-  var perNameController = TextEditingController();
+class DataController extends GetxController {
 
-  var personData=[].obs;
+  TextEditingController idController = TextEditingController();
+  TextEditingController perNameController = TextEditingController();
+  RxList personData = [].obs;
 
+  late PersonDao dao;
 
-  insertPerson(int id,String personName, PersonDao personDao)
-  async {
-    final person = Person(id,personName);
-    await personDao.insertPerson(person);
+  @override
+  void onInit() {
+    getAllPerson();
   }
 
-  Future<List<Person>> getAllPerson(PersonDao personDao) async{
-    var response =await personDao.findAllPerson();
-    personData.value=response;
-    update();
-    return response;
+  insertPerson() async {
+    if(perNameController.text.isNotEmpty)
+      {
+        final person = Person(null,perNameController.text);
+        await dao.insertPerson(person);
+        getAllPerson();
+        idController.clear();
+        perNameController.clear();
+      }
+    else {
+
+    }
+
   }
+
+  getAllPerson() async {
+    final database =
+    await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+    dao = database.personDao;
+    personData.value = await dao.findAllPerson();
+  }
+
 }

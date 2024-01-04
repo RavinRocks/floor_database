@@ -6,9 +6,6 @@ abstract class PersonDao {
   @Query('SELECT * FROM Person')
   Future<List<Person>> findAllPerson();
 
-  @Query('SELECT name FROM Person')
-  Stream<List<String>> findAllPersonName();
-
   @Query('SELECT * FROM Person WHERE id = :id')
   Stream<Person?> findPersonById(int id);
 
@@ -18,7 +15,7 @@ abstract class PersonDao {
   @insert
   Future<void> insertPerson(Person person);
 
-  @delete
-  Future<void> deletePerson(Person id);
+ /* @delete
+  Future<void> deletePerson(Person id);*/
 
 }
