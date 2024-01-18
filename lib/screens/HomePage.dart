@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    DataController controller=Get.put(DataController());
+      DataController controller=Get.put(DataController());
 
         return Scaffold(
           appBar: AppBar(title: const Text("Todo List"),),
@@ -59,9 +59,9 @@ class HomePage extends StatelessWidget {
           },
           child: Container(
             width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(10)),
-              child: const Icon(Icons.add,color: Colors.white,)),
+            height: double.infinity,
+            decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(10)),
+            child: const Icon(Icons.add,color: Colors.white,)),
         ),
       );
 

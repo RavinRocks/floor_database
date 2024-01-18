@@ -9,6 +9,7 @@ class DataController extends GetxController {
   TextEditingController idController = TextEditingController();
   TextEditingController perNameController = TextEditingController();
   RxList personData = [].obs;
+  RxString mytext="h".obs;
 
   late PersonDao dao;
 
